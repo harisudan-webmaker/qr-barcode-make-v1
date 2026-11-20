@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Free all-in-one QR Code and Barcode generator in your browser. Create URL, Wi-Fi, WhatsApp, and vCard QR codes with custom colors and center logos, plus CODE128 and EAN-13 barcodes." />
+  <title>Free All-in-One QR Code &amp; Barcode Generator (Custom Logo &amp; Colors)</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.6/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <button type="button" class="nav-link active" data-tab="qrTab">QR Code Generator</button>
+    <button type="button" class="nav-link" data-tab="barcodeTab">Barcode Generator</button>
+  </nav>
+
+  <div class="page-wrap">
+    <!-- Top Banner Ad Slot (728x90) -->
+    <div class="ad-slot" id="ad-top">
+      <span>Ad Space (728×90 Banner)</span>
+    </div>
+
+    <!-- TOOL 1: QR CODE GENERATOR -->
+    <main class="tool-box tab-panel active" id="qrTab">
+      <h1>QR Code Generator</h1>
+      <p class="subtitle">Create custom-colored QR codes with your own center logo locally in your browser. Never expires.</p>
+
+      <div class="workspace">
+        <div class="form-col">
+          <div class="control-group">
+            <label for="qrType">QR Code Type</label>
+            <select id="qrType">
+              <option value="url" selected>Website URL / Plain Text</option>
+              <option value="wifi">Wi-Fi Network Login</option>
+              <option value="whatsapp">WhatsApp Direct Message</option>
+              <option value="vcard">Contact Card (vCard)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Input Fields -->
+          <div id="fields-url" class="type-fields active">
+            <div class="control-group">
+              <label for="qrUrlInput">URL or Text</label>
+              <input type="text" id="qrUrlInput" value="https://example.com" placeholder="https://yourwebsite.com" />
+            </div>
+          </div>
+
+          <div id="fields-wifi" class="type-fields">
+            <div class="control-group">
+              <label for="wifiSsid">Wi-Fi Network Name (SSID)</label>
+              <input type="text" id="wifiSsid" placeholder="MyHomeWiFi" />
+            </div>
+            <div class="row-2">
+              <div class="control-group">
+                <label for="wifiPass">Password</label>
+                <input type="text" id="wifiPass" placeholder="Wi-Fi Password" />
+              </div>
+              <div class="control-group">
+                <label for="wifiEnc">Security</label>
+                <select id="wifiEnc">
+                  <option value="WPA" selected>WPA / WPA2</option>
+                  <option value="WEP">WEP</option>
+                  <option value="nopass">None (Open)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="fields-whatsapp" class="type-fields">
+            <div class="control-group">
+              <label for="waPhone">Phone Number (with Country Code, no +)</label>
+              <input type="text" id="waPhone" placeholder="94771234567" />
+            </div>
+            <div class="control-group">
+              <label for="waMsg">Pre-filled Message (Optional)</label>
+              <input type="text" id="waMsg" placeholder="Hi! I saw your link..." />
+            </div>
+          </div>
+
+          <div id="fields-vcard" class="type-fields">
+            <div class="row-2">
+              <div class="control-group">
+                <label for="vcName">Full Name</label>
+                <input type="text" id="vcName" placeholder="Alex Perera" />
+              </div>
+              <div class="control-group">
+                <label for="vcPhone">Phone</label>
+                <input type="text" id="vcPhone" placeholder="+94 77 123 4567" />
+              </div>
+            </div>
+            <div class="row-2">
+              <div class="control-group">
+                <label for="vcEmail">Email</label>
+                <input type="email" id="vcEmail" placeholder="alex@example.com" />
+              </div>
+              <div class="control-group">
+                <label for="vcOrg">Company / Title</label>
+                <input type="text" id="vcOrg" placeholder="Studio Web" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Customization Controls -->
+          <div class="row-2">
+            <div class="control-group">
+              <label for="qrFgColor">QR Foreground Color</label>
+              <input type="color" id="qrFgColor" value="#0f172a" />
+            </div>
+            <div class="control-group">
+              <label for="qrBgColor">Background Color</label>
+              <input type="color" id="qrBgColor" value="#ffffff" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="control-group">
+              <label for="qrSize">Export Size (px)</label>
+              <select id="qrSize">
+                <option value="300">300 × 300 (Standard)</option>
+                <option value="512" selected>512 × 512 (High Res)</option>
+                <option value="1024">1024 × 1024 (Print)</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="qrLogoInput">Center Logo (Optional)</label>
+              <input type="file" id="qrLogoInput" accept="image/png,image/jpeg,image/webp,image/svg+xml" />
+            </div>
+          </div>
+
+          <div class="control-group" id="logoScaleGroup" hidden>
+            <label for="logoScale">Logo Size: <span id="logoScaleVal">22</span>% (Auto-sets High Error Correction)</label>
+            <input type="range" id="logoScale" min="14" max="30" value="22" />
+            <button type="button" id="clearLogoBtn" class="btn-secondary">Remove Logo</button>
+          </div>
+        </div>
+
+        <div class="preview-col">
+          <div class="preview-card">
+            <canvas id="qrFinalCanvas" width="512" height="512"></canvas>
+          </div>
+          <button type="button" id="downloadQrBtn" class="btn-primary">Download QR Code (PNG)</button>
+          <p id="qrStatus" class="status-msg"></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- TOOL 2: BARCODE GENERATOR -->
+    <main class="tool-box tab-panel" id="barcodeTab">
+      <h1>Barcode Generator</h1>
+      <p class="subtitle">Generate scannable CODE128, EAN-13, UPC, and CODE39 barcodes with custom colors.</p>
+
+      <div class="workspace">
+        <div class="form-col">
+          <div class="row-2">
+            <div class="control-group">
+              <label for="bcFormat">Barcode Format</label>
+              <select id="bcFormat">
+                <option value="CODE128" selected>CODE128 (Letters &amp; Numbers)</option>
+                <option value="EAN13">EAN-13 (12 or 13 digits)</option>
+                <option value="UPC">UPC-A (11 or 12 digits)</option>
+                <option value="CODE39">CODE39 (Uppercase &amp; Digits)</option>
+                <option value="ITF14">ITF-14 (14 digits)</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="bcValue">Barcode Data</label>
+              <input type="text" id="bcValue" value="ITEM-2026-001" placeholder="Enter value..." />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="control-group">
+              <label for="bcLineColor">Bar Color</label>
+              <input type="color" id="bcLineColor" value="#0f172a" />
+            </div>
+            <div class="control-group">
+              <label for="bcBgColor">Background Color</label>
+              <input type="color" id="bcBgColor" value="#ffffff" />
+            </div>
+          </div>
+
+          <div class="row-2">
+            <div class="control-group">
+              <label for="bcHeight">Bar Height: <span id="bcHeightVal">90</span>px</label>
+              <input type="range" id="bcHeight" min="40" max="160" value="90" />
+            </div>
+            <div class="control-group">
+              <label for="bcShowText">Human-Readable Text</label>
+              <select id="bcShowText">
+                <option value="true" selected>Show Text Below Bars</option>
+                <option value="false">Hide Text</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-col">
+          <div class="preview-card">
+            <canvas id="bcCanvas"></canvas>
+          </div>
+          <button type="button" id="downloadBcBtn" class="btn-primary">Download Barcode (PNG)</button>
+          <p id="bcStatus" class="status-msg"></p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bottom Banner Ad Slot (468x60) -->
+    <div class="ad-slot ad-slot-bottom" id="ad-bottom">
+      <span>Ad Space (468×60 Banner)</span>
+    </div>
+
+    <section class="seo-info">
+      <h2>Free Static QR Codes &amp; Barcodes — 100% Private</h2>
+      <p>Generate unlimited permanent QR codes for links, Wi-Fi passwords, WhatsApp chats, and vCards with custom colors and embedded brand logos, or create retail-ready CODE128 and EAN-13 barcodes directly in your browser without sign-ups.</p>
+    </section>
+  </div>
+
+  <div id="qrHiddenHolder" hidden></div>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #f1f5f9;
+  color: #0f172a;
+  line-height: 1.5;
+}
+
+.navbar {
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-link {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  color: #475569;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.nav-link.active {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.page-wrap {
+  max-width: 920px;
+  margin: 1.25rem auto 2.5rem;
+  padding: 0 1rem;
+}
+
+.ad-slot {
+  background: #e2e8f0;
+  border: 1px dashed #94a3b8;
+  border-radius: 10px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  min-height: 90px;
+  margin: 0 auto 1.25rem;
+  max-width: 728px;
+  overflow: hidden;
+}
+
+.ad-slot-bottom {
+  min-height: 60px;
+  max-width: 468px;
+  margin-top: 1.25rem;
+}
+
+.tool-box {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  padding: 1.75rem;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+h1 {
+  font-size: 1.55rem;
+  margin-bottom: 0.35rem;
+}
+
+.subtitle {
+  color: #475569;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 740px) {
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+}
+
+.type-fields {
+  display: none;
+}
+
+.type-fields.active {
+  display: block;
+}
+
+.row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.85rem;
+}
+
+@media (max-width: 480px) {
+  .row-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.control-group {
+  margin-bottom: 1rem;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.35rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="file"],
+select {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.93rem;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+input[type="color"] {
+  width: 100%;
+  height: 40px;
+  padding: 2px 4px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type="range"] {
+  width: 100%;
+  accent-color: #2563eb;
+}
+
+.preview-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.preview-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 270px;
+  margin-bottom: 1rem;
+}
+
+.preview-card canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.btn-primary {
+  width: 100%;
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  border-radius: 9px;
+  font-size: 0.98rem;
+  font-weight: 600;
+  padding: 0.78rem 1.2rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.btn-primary:hover {
+  background: #1d4ed8;
+}
+
+.btn-secondary {
+  margin-top: 0.45rem;
+  background: #f1f5f9;
+  color: #334155;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.75rem;
+  cursor: pointer;
+}
+
+.status-msg {
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+  color: #059669;
+  text-align: center;
+  min-height: 1.2em;
+}
+
+.status-msg.error {
+  color: #dc2626;
+}
+
+.seo-info {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-top: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.seo-info h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.35rem;
+}
+
+.seo-info p {
+  color: #475569;
+  font-size: 0.9rem;
+}
